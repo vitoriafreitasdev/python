@@ -18,7 +18,7 @@ class MapaCampus:
 
             if ultimo == destino:
                 return caminho 
-            for vizinho in self.grafo.get(ultimo, []): # cai nesse for se ele nao for o  caminho minimo?
+            for vizinho in self.grafo.get(ultimo, []):
                 if vizinho not in visitados:
                     visitados.add(vizinho)
                     
