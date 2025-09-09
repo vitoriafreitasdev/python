@@ -80,3 +80,91 @@ def pre_order_iterative(node):
         if node.left: stk.append(node.left)
 
 
+pre_order_iterative(A)
+
+#bfs
+from collections import deque 
+
+def level_order(node):
+    q = deque()
+    q.append(node)
+
+    while q:
+        node = q.popleft()
+        print(node)
+        
+        if node.left: q.append(node.left)
+        if node.left: q.append(node.left)
+    level_order(A)
+
+
+#check if value exist with dfs, time O(n)
+
+def search(node, target):
+    if not node:
+        return False
+    
+    if node.val == target:
+        return True 
+    
+    return search(node.left, target) or search(node.right, target)
+
+
+print(search(A, 5))
+from collections import deque
+
+def search_bfs(node, target):
+    if not node:
+        return False
+    
+    # fila para visitar os nós
+    queue = deque([node])
+    
+    while queue:
+        current = queue.popleft()  # retira da frente (FIFO)
+        
+        if current.val == target:
+            return True
+        
+        # adicionar filhos na fila
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    
+    return False
+
+
+print(search_bfs(A, 5))   # True
+print(search_bfs(A, 100)) # False
+
+
+# binary search tree (BSTs)
+
+A2 = TreeNode(5)
+B2 = TreeNode(1)
+C2 = TreeNode(8)
+D2 = TreeNode(-1)
+E2 = TreeNode(3)
+F2 = TreeNode(7)
+G2 = TreeNode(9)
+
+A2.left, A2.right = B2, C2 
+B2.left, B2.right = D2, E2 
+C2.left, C2.right = F2, G2 
+
+in_order(A2)
+
+# time: O(log n), space: o(log n)
+
+def search_bst(node, target):
+    if not node:
+        return False
+    
+    if node.val == target:
+        return True 
+    
+    if target < node.val: return search_bst(node.left, target)
+    else: return search_bst(node.right, target)
+
+print(search_bst(A2, 8))

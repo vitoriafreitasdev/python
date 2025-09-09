@@ -49,10 +49,8 @@ class Grafo:
     def bfs(self, inicio, fim):
         visitados = set([inicio])
         fila = deque([[inicio]])
-        i = 0
         while fila:
-            i += 1
-            # debug print(i)
+
             # debug print("fila: ", fila)
             caminho = fila.popleft()
             ultimo = caminho[-1]
