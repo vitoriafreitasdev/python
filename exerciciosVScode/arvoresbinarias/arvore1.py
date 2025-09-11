@@ -9,8 +9,6 @@ class TreeNode:
 
     def __str__(self):
         return str(self.val)
-    
-
 
 A = TreeNode(1)
 B = TreeNode(2)
