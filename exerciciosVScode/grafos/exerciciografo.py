@@ -22,6 +22,7 @@ class Grafo:
         for inicio, fim in self.vertices:
             self.grafo[inicio].append(fim)
             self.grafo[fim].append(inicio)
+
         
         print(self.grafo)
 

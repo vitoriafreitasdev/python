@@ -44,6 +44,7 @@ class MapaCampus:
         
         dfs(origem, [origem], set([origem]))
         return todos
+    
 
 def principal():
     mapa = MapaCampus()

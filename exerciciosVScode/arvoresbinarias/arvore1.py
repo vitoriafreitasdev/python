@@ -38,7 +38,7 @@ def pre_order(node):
     pre_order(node.left)
     pre_order(node.right)
 
-pre_order(A)
+pre_order(B)
 
 print("\nIn-Order\n")
 
@@ -81,7 +81,7 @@ def pre_order_iterative(node):
 
 
 pre_order_iterative(A)
-
+print("\nBfs:\n")
 #bfs
 from collections import deque 
 
@@ -95,8 +95,8 @@ def level_order(node):
         
         if node.left: q.append(node.left)
         if node.left: q.append(node.left)
-    level_order(A)
 
+level_order(A)
 
 #check if value exist with dfs, time O(n)
 

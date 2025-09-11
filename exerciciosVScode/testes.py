@@ -74,9 +74,11 @@
 # pilha.pop()
 # print(pilha)
 
-n = 10
-for i in range(1, n):
-    tela = ""
-    for j in range (1, i):
-        tela += "*"
-    print(tela)
+# n = 10
+# for i in range(1, n):
+#     tela = ""
+#     for j in range (1, i):
+#         tela += "*"
+#     print(tela)
+
+
