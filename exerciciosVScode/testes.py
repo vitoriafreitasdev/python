@@ -82,3 +82,13 @@
 #     print(tela)
 
 
+# abc pharma,sales executive,masters,0
+# abc pharma,computer programmer,bachelors,0
+# abc pharma,business manager,bachelors,0
+# abc pharma,business manager,masters,1
+# facebook,sales executive,bachelors,1
+# facebook,sales executive,masters,1
+# facebook,business manager,bachelors,1
+# facebook,business manager,masters,1
+# facebook,computer programmer,bachelors,1
+# facebook,computer programmer,masters,1
