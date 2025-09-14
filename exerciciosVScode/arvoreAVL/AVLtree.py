@@ -159,7 +159,9 @@ class AVLtree:
 		elif value > cur_node.value and cur_node.right_child != None:
 			return self._search(value, cur_node.right_child)
 		return False
-
+	
+	# AVL functions 
+	
 	def _inspect_insertion(self, cur_node, path=[]):
 		if cur_node.parent == None:
 			return
@@ -272,7 +274,12 @@ class AVLtree:
 	
 
 a = AVLtree()
-a.insert(5)
-a.insert(10)
-a.insert(1)
-a.print_tree()
+for i in range(10):
+	print("Inserting %d" %i)
+	a.insert(i)
+	a.print_tree()
+for i in range(10):
+	print("Deleting %d"%i)
+	a.delete_value(i)
+	a.print_tree()
+

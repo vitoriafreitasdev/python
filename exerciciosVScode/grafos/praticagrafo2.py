@@ -28,7 +28,7 @@ class Grafo:
             if no not in todos:
                 caminhos = self.dfs(no, fim, todos)
                 for c in caminhos:
-                    todos_caminhos.append(c)
+                    todos_caminhos.append(c) #aqui guarda todos os resultados da resursão.
 
         return todos_caminhos
     # mais eficiente

@@ -1,3 +1,4 @@
+
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
@@ -129,3 +130,4 @@ print("\nPrevisões:")
 print(f"Google, Computer Programmer, Masters: {predict_salary('google', 'computer programmer', 'masters')}")
 print(f"ABC Pharma, Sales Executive, Bachelors: {predict_salary('abc pharma', 'sales executive', 'bachelors')}")
 print(f"Facebook, Business Manager, Masters: {predict_salary('facebook', 'business manager', 'masters')}")
+
