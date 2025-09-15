@@ -226,11 +226,14 @@ class AVLtree:
     def _rebalance_node(self, z, y, x):
         if y == z.left_child and x == y.left_child:
             self._right_rotate(z)
+
         elif y == z.left_child and x == y.right_child:
             self._left_rotate(y)
             self._right_rotate(z)
+
         elif y == z.right_child and x == y.right_child:
             self._left_rotate(z)
+
         elif y == z.right_child and x == y.left_child:
             self._right_rotate(y)
             self._left_rotate(z)
@@ -270,9 +273,11 @@ class AVLtree:
         y.left_child = z
         z.parent = y
         z.right_child = t2
+
         if t2 != None:
             t2.parent = z
         y.parent = sub_root
+        
         if y.parent == None:
             self.root = y
         else:
@@ -298,7 +303,8 @@ class AVLtree:
         left = self.get_height(cur_node.left_child)
         right = self.get_height(cur_node.right_child)
         return cur_node.left_child if left >= right else cur_node.right_child
-
+    
+    ## metodos adicionados pelo deepseak, não pegar
     def find_by_remedio(self, remedio_name):
         """Método adicional para buscar por nome do remédio"""
         if self.root != None:

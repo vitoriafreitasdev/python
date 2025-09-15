@@ -77,8 +77,11 @@ data_to_insert = [
 for company, job, degree, salary in data_to_insert:
     root = avl_tree.insert(root, company, job, degree, salary)
 
+
+
 # Coletando dados da árvore para criar um DataFrame
 data_list = []
+
 avl_tree.in_order_traversal(root, data_list)
 df = pd.DataFrame(data_list)
 

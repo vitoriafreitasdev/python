@@ -92,3 +92,13 @@
 # facebook,business manager,masters,1
 # facebook,computer programmer,bachelors,1
 # facebook,computer programmer,masters,1
+
+
+data = []
+eficiencia = 1 
+colateral = 2
+passa = 1
+for i in range(3):
+    data.append((f'Remedio {i}', f'{eficiencia}', f'{colateral}', passa))
+
+print(data)
