@@ -5,6 +5,17 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 from collections import deque
 
+"""
+focar na parte de estraficação de pacientes
+fazer um grafo que vai representar os pacientes que participaram do teste
+dividir em => nome, idade, gravidade da doença 
+rotinas de aprendizado de máquina para estratificação de pacientes
+fazer um analise com aprendizado de maquina para pegar os pacientes que estao em situações mais graves, 1 para grave, 0 para nao grave
+pacientes graves seram prioridade => entraram na fila de pioridade
+
+"""
+
+
 class No:
     def __init__(self, remedio, efetivo, colateral, passa):
         # padronizamos a chave como (passa, remedio) para comparar corretamente
@@ -327,9 +338,15 @@ class AVLarvore:
         return passaram
 
 
-    def dfs_todos_remedios_do_teste():
-        pass
-            
+    def dfs_todos_remedios_do_teste(self, raiz, todos_remedios):
+        
+        if not raiz:
+            return 
+        
+        if raiz.remedio:
+            todos_remedios.append(raiz.remedio)
+        
+        return self.dfs_todos_remedios_do_teste(raiz.left, todos_remedios) or self.dfs_todos_remedios_do_teste(raiz.right, todos_remedios)
 
 if __name__ == "__main__":
     # Criando a árvore AVL
@@ -421,11 +438,18 @@ if __name__ == "__main__":
         except ValueError:
             print("Deu algum erro, tente novamente.")   
             break   
+    
+    print("\n")
+    passaram =  avl_tree.bfs_remedios_que_passaram(avl_tree.root)
+    todos_remedios = []
+    avl_tree.dfs_todos_remedios_do_teste(avl_tree.root, todos_remedios)
 
     print("=== Remedios que passaram no teste ===")
-    passaram =  avl_tree.bfs_remedios_que_passaram(avl_tree.root)
-
     for remedio in passaram:
+        print(remedio) 
+
+    print("=== Todos remedios que estão no teste ===")
+    for remedio in todos_remedios:
         print(remedio) 
 
     # print("Árvore AVL completa (ordenada por (passa, remedio)):")
