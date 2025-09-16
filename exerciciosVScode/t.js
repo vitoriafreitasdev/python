@@ -25,4 +25,8 @@ const catalogo = {
     }
 }
 
-console.log(catalogo.eletronicos.notebook.Sansung)
+
+var a = 10
+if (a <= 10 && a >=5  && a > 1){
+    console.log("Verdade")
+}
