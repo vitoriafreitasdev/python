@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
+from collections import deque
 
 class No:
     def __init__(self, remedio, efetivo, colateral, passa):
@@ -302,6 +303,32 @@ class AVLarvore:
                 "passa": raiz.passa
             })
             self.transforme_data(raiz.right, data_list)
+    
+    def bfs_remedios_que_passaram(self, raiz):
+        
+        if not raiz:
+            return False 
+        
+        fila = deque([raiz])
+        passaram = []
+        
+        while fila:
+            atual = fila.popleft()
+            
+            if atual.passa == 1:
+                passaram.append(atual.remedio)
+
+            if atual.left:
+                fila.append(atual.left)
+
+            if atual.right:
+                fila.append(atual.right)
+        
+        return passaram
+
+
+    def dfs_todos_remedios_do_teste():
+        pass
             
 
 if __name__ == "__main__":
@@ -318,13 +345,13 @@ if __name__ == "__main__":
 
             if(eficiencia != "s" and eficiencia != "n"):
                 print("Insira os dados corretamente.")
-                return
+                break
             
             colateral = input("Remedio tem colateral (sem colateral/colateral medio/colateral forte): ")
             
             if(colateral != "sem colateral" and colateral != "colateral medio" and colateral != "colateral forte"):
                 print("Insira os dados corretamente.")
-                return
+                break
             
             if colateral == "sem colateral" or colateral == "colateral medio":
                 colateral_aceitavel = True 
@@ -393,7 +420,13 @@ if __name__ == "__main__":
 
         except ValueError:
             print("Deu algum erro, tente novamente.")   
-            break     
+            break   
+
+    print("=== Remedios que passaram no teste ===")
+    passaram =  avl_tree.bfs_remedios_que_passaram(avl_tree.root)
+
+    for remedio in passaram:
+        print(remedio) 
 
     # print("Árvore AVL completa (ordenada por (passa, remedio)):")
     # avl_tree.print_tree()
