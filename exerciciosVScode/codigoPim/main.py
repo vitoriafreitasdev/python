@@ -7,8 +7,8 @@ from avltree import AVLarvore
 from grafo import Grafo
 
 """
-- colacar mais um atributo na arvore => seguro de administrar
-- Fazer detecção de remédios se desviam muito dos outros
+agora fazer analise assintótica de complexidade e de
+suíte de testes unitários com cobertura superior a 80 por cento.
 
 """
 
@@ -20,11 +20,11 @@ if __name__ == "__main__":
     vertices = []
 
     def menu():
-        remedios_quantidade = int(input("Quantos remedios se vai inserir para analise: "))
+        remedios_quantidade = int(input("Quantos remédios se vai inserir para analise: "))
     
         for _ in range(remedios_quantidade):
             # Inserindo dados na árvore
-            nome_remedio = input("Coloque o nome do remedio: ")
+            nome_remedio = input("Coloque o nome do remédio: ")
 
             eficiencia = input("Remedio é eficiente (s/n): ")
 
@@ -32,24 +32,30 @@ if __name__ == "__main__":
                 print("Insira os dados corretamente.")
                 return
             
-            colateral = input("Remedio tem colateral (sem colateral/colateral medio/colateral forte): ")
+            seguro = input("Remédio é seguro de administrar (s/n): ")
+
+            if(seguro != "s" and seguro != "n"):
+                print("Insira os dados corretamente.")
+                return
             
-            if(colateral != "sem colateral" and colateral != "colateral medio" and colateral != "colateral forte"):
+            colateral = input("Remédio tem colateral (sem colateral/colateral medio/colateral alto): ")
+            
+            if(colateral != "sem colateral" and colateral != "colateral medio" and colateral != "colateral alto"):
                 print("Insira os dados corretamente.")
                 return
             
             if colateral == "sem colateral" or colateral == "colateral medio":
                 colateral_aceitavel = True 
             
-            if colateral == "colateral forte":
+            if colateral == "colateral alto":
                 colateral_aceitavel = False
 
-            if colateral_aceitavel and eficiencia == "s":
+            if colateral_aceitavel and eficiencia == "s" and seguro == "s":
                 passa = 1
             else:
                 passa = 0
 
-            dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', passa))
+            dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', f'{seguro}', passa))
 
         pacientes_quantidade = int(input("Quantos pacientes participaram do teste: "))
 
@@ -73,12 +79,10 @@ if __name__ == "__main__":
     menu()
 
 
-    for remedio, efetivo, colateral, passa in dados_para_inserir:
-        avl_tree.insert(remedio, efetivo, colateral, passa)
+    for remedio, efetivo, colateral, seguro, passa in dados_para_inserir:
+        avl_tree.insert(remedio, efetivo, colateral, seguro, passa)
 
     data_list = []
-
-    
 
     avl_tree.transforme_data(avl_tree.root, data_list)
 
@@ -92,13 +96,15 @@ if __name__ == "__main__":
     le_remedio = LabelEncoder()
     le_efetivo = LabelEncoder()
     le_colateral = LabelEncoder()
+    le_seguro = LabelEncoder()
 
     inputs["remedio_n"] = le_remedio.fit_transform(inputs['remedio'])
     inputs["efetivo_n"] = le_colateral.fit_transform(inputs['efetivo'])
     inputs["colateral_n"]= le_colateral.fit_transform(inputs['colateral'])
+    inputs["seguro_n"]= le_seguro.fit_transform(inputs['seguro'])
 
-    inputs_n = inputs.drop(['remedio', 'efetivo', 'colateral'], axis="columns")
-    inputs_sem_numero = inputs.drop(['remedio_n', 'efetivo_n', 'colateral_n'], axis="columns")
+    inputs_n = inputs.drop(['remedio', 'efetivo', 'colateral', 'seguro'], axis="columns")
+    inputs_sem_numero = inputs.drop(['remedio_n', 'efetivo_n', 'colateral_n', 'seguro_n'], axis="columns")
     print("Dados:")
     print(inputs_sem_numero)
     print("\nDados Codificados:")
@@ -106,20 +112,24 @@ if __name__ == "__main__":
 
     model = tree.DecisionTreeClassifier()
     model.fit(inputs_n, target)
-    porcetagem_acerto = model.score(inputs_n, target)
+    
+    outliers = []
+
     while True:
 
         try:
-            print("De acordo com a tabela de de dados codificados, coloque abaixo os numeros, dos seguintes dados: remedio, efetivo, colateral.")
-            n1 = int(input("Numero do remedio: "))
-            n2 = int(input("Numero do efetivo: "))
-            n3 = int(input("Numero do colateral: "))
-            resultado = model.predict([[n1, n2, n3]])
+            print("De acordo com a tabela de de dados codificados, coloque abaixo os números, dos seguintes dados: remedio, efetivo, seguro, colateral.")
+            n1 = int(input("Número do remédio: "))
+            n2 = int(input("Número respectivo a efetividade: "))
+            n3 = int(input("Número do colateral: "))
+            n4 = int(input("Número respectivo a efetividade a segurança: "))
+            resultado = model.predict([[n1, n2, n3, n4]])
 
             if resultado == 1:
                 print("Aprovado para venda.")
             else:
                 print("Reporovado, precisa de mais testes e mais reajustes a serem feitos.")
+                outliers.append((f"Remedio numero: {n1}"))
 
             continuar = input("Deseja continuar (s/n): ")
 
@@ -136,16 +146,19 @@ if __name__ == "__main__":
     todos_remedios = []
     avl_tree.dfs_todos_remedios_do_teste(avl_tree.root, todos_remedios)
 
-    print("=== Remedios que passaram no teste ===")
+    print("=== Remédios que passaram no teste ===")
     for remedio in passaram:
         print(remedio) 
 
-    print("=== Todos remedios que estão no teste ===")
+    print("=== Todos remédios que estão no teste ===")
     for remedio in todos_remedios:
         print(remedio) 
 
+    print("=== Outliers dectados durantes os testes ===")
+    for outlier in outliers:
+        print(outlier)
 
-    ## grafo parte
+    ## parte dos pacientes
 
     grafo = Grafo(vertices)
 
@@ -181,7 +194,6 @@ if __name__ == "__main__":
         
         if resultadopacientes == 1:
             pacientes_prioritarios.append((nome))
-   
 
 
     fila =  grafo.alocar_fila_de_pioridade(pacientes_prioritarios)

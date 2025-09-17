@@ -2,13 +2,14 @@
 from collections import deque
 
 class No:
-    def __init__(self, remedio, efetivo, colateral, passa):
+    def __init__(self, remedio, efetivo, colateral, seguro, passa):
         # padronizamos a chave como (passa, remedio) para comparar corretamente
         self.key = (passa, remedio)
         self.remedio = remedio
         self.passa = passa
         self.efetivo = efetivo 
         self.colateral = colateral 
+        self.seguro = seguro
         self.height = 0
         self.parent = None 
         self.left = None 
@@ -19,30 +20,30 @@ class AVLarvore:
     def __init__(self):
         self.root = None 
 
-    def insert(self, remedio, efetivo, colateral, passa):
+    def insert(self, remedio, efetivo, colateral, seguro, passa):
         if self.root is None:            
-            self.root = No(remedio, efetivo, colateral, passa)
+            self.root = No(remedio, efetivo, colateral, seguro, passa)
         else:
-            self._insert(remedio, efetivo, colateral, passa, self.root)
+            self._insert(remedio, efetivo, colateral, seguro, passa, self.root)
     
-    def _insert(self, remedio, efetivo, colateral, passa, no_atual):
+    def _insert(self, remedio, efetivo, colateral, seguro, passa, no_atual):
         new_key = (passa, remedio)
         current_key = (no_atual.passa, no_atual.remedio)
 
         if new_key < current_key:
             if no_atual.left is None:
-                no_atual.left = No(remedio, efetivo, colateral, passa)
+                no_atual.left = No(remedio, efetivo, colateral, seguro, passa)
                 no_atual.left.parent = no_atual
                 self._inspect_insertion(no_atual.left)
             else:
-                self._insert(remedio, efetivo, colateral, passa, no_atual.left)
+                self._insert(remedio, efetivo, colateral, seguro, passa, no_atual.left)
         elif new_key > current_key:
             if no_atual.right is None:
-                no_atual.right = No(remedio, efetivo, colateral, passa)
+                no_atual.right = No(remedio, efetivo, colateral, seguro, passa)
                 no_atual.right.parent = no_atual
                 self._inspect_insertion(no_atual.right)
             else:
-                self._insert(remedio, efetivo, colateral, passa, no_atual.right)
+                self._insert(remedio, efetivo, colateral, seguro, passa, no_atual.right)
         else:
             print("Medicamentos já existem na arvore.")
 
@@ -53,7 +54,7 @@ class AVLarvore:
     def _print_tree(self, cur_node):
         if cur_node is not None:
             self._print_tree(cur_node.left)
-            print(f'{cur_node.remedio}: passa={cur_node.passa}, efeito: {cur_node.efetivo}, colateral: {cur_node.colateral}, h={cur_node.height}')
+            print(f'{cur_node.remedio}: passa={cur_node.passa}, efeito: {cur_node.efetivo}, colateral: {cur_node.colateral}, segurança: {cur_node.seguro} h={cur_node.height}')
             self._print_tree(cur_node.right)
 
     def height(self):
@@ -143,6 +144,7 @@ class AVLarvore:
             no.remedio = sucessor.remedio 
             no.efetivo = sucessor.efetivo 
             no.colateral = sucessor.colateral
+            no.seguro = sucessor.seguro
 
             # remover o sucessor
             self.delete_node(sucessor)
@@ -296,6 +298,7 @@ class AVLarvore:
                 "remedio": raiz.remedio,
                 "efetivo": raiz.efetivo,
                 "colateral": raiz.colateral,
+                "seguro": raiz.seguro,
                 "passa": raiz.passa
             })
             self.transforme_data(raiz.right, data_list)

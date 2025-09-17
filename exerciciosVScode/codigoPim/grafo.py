@@ -4,7 +4,6 @@ from collections import defaultdict
 
 from collections import deque
 """
-
 encadeamento de tarefas com grafos
 
 - primeiro coletamos os dados do pacientes, nome e gravidade da doença
@@ -48,36 +47,3 @@ class Grafo:
 
         
         
-        
-   
-
-
-pacientes = [
-    ("B", "sim"),
-    ("C", "nao"),
-    ("D", "sim"),
-    ("E", "nao"),
-    ("F", "sim"),
-    ("G", "nao"),
-]
-# vertices = []
-# print(pacientes)
-# for i in range(4):
-#     nome = input("Nome: ")
-#     gravidade = input("gravidade: ")
-#     vertices.append((nome, gravidade))
-
-# print(vertices)
-# grafo = Grafo(pacientes)
-
-# grafo.todos_pacientes()
-
-# pacientes_prioritarios = [("C"), ("E"), ("G")]
-
-# fila_de_prioridade = grafo.alocar_fila_de_pioridade(pacientes_prioritarios)
-
-# grafo.mostrar_prioritarios(fila_de_prioridade)
-
-# data = grafo.alocar_dados()
-
-# print(data)
