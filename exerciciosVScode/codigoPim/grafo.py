@@ -4,11 +4,12 @@ from collections import defaultdict
 
 from collections import deque
 """
-focar na parte de estraficação de pacientes
-para  encadeamento de tarefas =. 1.fazer um grafo que vai representar os pacientes que participaram do teste
-dividir em => nome, gravidade da doença 
-2. pegar os que estão com gravidade alta e colocar na fila de prioridade, mostrar essa fila de prioridade na tela
-0 para não grave, 1 para grave
+
+encadeamento de tarefas com grafos
+
+- primeiro coletamos os dados do pacientes, nome e gravidade da doença
+- colocamos esses dados em grafo
+- depois pegamos os que são pioridade com um rotina de aprendizado de maquina e colocamos na lila de pioridade
 """
 # as vertices vao ser o nome e a gravidade da doenca
 
@@ -20,28 +21,63 @@ class Grafo:
         for nome, gravidade in self.vertices:
             self.grafo[nome].append(gravidade)
         
-        print(self.grafo)
     
     def todos_pacientes(self):
-        
         for vizinhos in self.grafo:
             print(vizinhos)
 
-            
-            
+    def alocar_fila_de_pioridade(self, pacientes_prioritarios):
+        fila = deque([])
+        for paciente in pacientes_prioritarios:
+            fila.append(paciente)
+        
+        return fila 
+    
+    def mostrar_prioritarios(self, fila):
+        
+        for i in range(len(fila)):
+            print(f"Paciente número {i+1}:", fila.popleft()) 
 
+    def alocar_dados(self):
+        data = []
+    
+        for key, value in self.grafo.items():
+            data.append({"nome": key, "gravidade": value})
+    
+        return data
 
+        
+        
+        
+   
 
 
 pacientes = [
-    ("B", 0),
-    ("C", 1),
-    ("D", 0),
-    ("E", 1),
-    ("F", 0),
+    ("B", "sim"),
+    ("C", "nao"),
+    ("D", "sim"),
+    ("E", "nao"),
+    ("F", "sim"),
+    ("G", "nao"),
 ]
+# vertices = []
+# print(pacientes)
+# for i in range(4):
+#     nome = input("Nome: ")
+#     gravidade = input("gravidade: ")
+#     vertices.append((nome, gravidade))
 
-grafo = Grafo(pacientes)
+# print(vertices)
+# grafo = Grafo(pacientes)
 
-grafo.todos_pacientes()
+# grafo.todos_pacientes()
 
+# pacientes_prioritarios = [("C"), ("E"), ("G")]
+
+# fila_de_prioridade = grafo.alocar_fila_de_pioridade(pacientes_prioritarios)
+
+# grafo.mostrar_prioritarios(fila_de_prioridade)
+
+# data = grafo.alocar_dados()
+
+# print(data)
