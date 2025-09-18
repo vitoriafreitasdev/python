@@ -315,7 +315,7 @@ class AVLarvore:
             })
             self.transforme_data(raiz.left, data_list)
             self.transforme_data(raiz.right, data_list)
-        
+            
 
     #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def bfs(self, raiz):
