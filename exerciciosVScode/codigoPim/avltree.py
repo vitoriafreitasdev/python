@@ -2,7 +2,7 @@
 from collections import deque
 
 class No:
-    def __init__(self, remedio, efetivo, colateral, seguro, passa):
+    def __init__(self, remedio=None, efetivo=None, colateral=None, seguro=None, passa=None):
         # padronizamos a chave como (passa, remedio) para comparar corretamente
         self.key = (passa, remedio)
         self.remedio = remedio
@@ -165,7 +165,7 @@ class AVLarvore:
     
     def _search(self, key, no_atual):
         chave_atual = (no_atual.passa, no_atual.remedio)
-
+        
         if key == chave_atual:
             return True
         elif key < chave_atual and no_atual.left is not None:
@@ -222,7 +222,8 @@ class AVLarvore:
             self._left_rotate(z)
         else: 
             raise Exception("Aconteceu um erro ao rebalancear.")
-    
+        
+    #Rotações da arvore para garantir uma arvore balanceada
     def _right_rotate(self, z):
         sub_root = z.parent 
         y = z.left 
@@ -291,6 +292,7 @@ class AVLarvore:
         right = self.get_height(no_atual.right)
         return no_atual.left if left >= right else no_atual.right
     
+    #Análise Assintótica Tempo: O(n) Espaço: O(O(n + h))
     def transforme_data(self, raiz, data_list):
         if raiz:
             self.transforme_data(raiz.left, data_list)
@@ -303,6 +305,7 @@ class AVLarvore:
             })
             self.transforme_data(raiz.right, data_list)
     
+    #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def bfs_remedios_que_passaram(self, raiz):
         
         if not raiz:
@@ -325,7 +328,7 @@ class AVLarvore:
         
         return passaram
 
-
+    #Análise Assintótica Tempo: O(n) Espaço: O(n + h)
     def dfs_todos_remedios_do_teste(self, raiz, todos_remedios):
         
         if not raiz:
@@ -335,3 +338,8 @@ class AVLarvore:
             todos_remedios.append(raiz.remedio)
         
         return self.dfs_todos_remedios_do_teste(raiz.left, todos_remedios) or self.dfs_todos_remedios_do_teste(raiz.right, todos_remedios)
+    
+
+
+
+

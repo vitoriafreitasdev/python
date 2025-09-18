@@ -14,16 +14,17 @@ suíte de testes unitários com cobertura superior a 80 por cento.
 
 
 if __name__ == "__main__":
-    # Criando a árvore AVL
+    # Criando a árvore  para alimentar os dados da rotina de aprendizado de maquina dos remédios.
     avl_tree = AVLarvore()
     dados_para_inserir = []
     vertices = []
 
     def menu():
+        #Coletando dados para arvore AVL
         remedios_quantidade = int(input("Quantos remédios se vai inserir para analise: "))
     
         for _ in range(remedios_quantidade):
-            # Inserindo dados na árvore
+            
             nome_remedio = input("Coloque o nome do remédio: ")
 
             eficiencia = input("Remedio é eficiente (s/n): ")
@@ -57,10 +58,10 @@ if __name__ == "__main__":
 
             dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', f'{seguro}', passa))
 
+        #Coletando dados para o grafo que vai alimentas a rotina de aprendizado de maquina dos pacientes.
         pacientes_quantidade = int(input("Quantos pacientes participaram do teste: "))
 
-    
-        for i in range(pacientes_quantidade):
+        for _ in range(pacientes_quantidade):
             
             nome = input("Nome do paciente: ")
             gravidade_input = input("Doença é grave (s/n): ")
@@ -78,7 +79,7 @@ if __name__ == "__main__":
 
     menu()
 
-
+    print(dados_para_inserir)
     for remedio, efetivo, colateral, seguro, passa in dados_para_inserir:
         avl_tree.insert(remedio, efetivo, colateral, seguro, passa)
 
@@ -91,7 +92,6 @@ if __name__ == "__main__":
     inputs = df.drop('passa', axis='columns')
     target = df['passa']
 
-    print(target)
 
     le_remedio = LabelEncoder()
     le_efetivo = LabelEncoder()
@@ -158,8 +158,7 @@ if __name__ == "__main__":
     for outlier in outliers:
         print(outlier)
 
-    ## parte dos pacientes
-
+    #Criando o grafo
     grafo = Grafo(vertices)
 
     data = grafo.alocar_dados()
