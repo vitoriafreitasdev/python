@@ -79,7 +79,6 @@ if __name__ == "__main__":
 
     menu()
 
-    print(dados_para_inserir)
     for remedio, efetivo, colateral, seguro, passa in dados_para_inserir:
         avl_tree.insert(remedio, efetivo, colateral, seguro, passa)
 
@@ -142,9 +141,9 @@ if __name__ == "__main__":
             break   
     
     print("\n")
-    passaram =  avl_tree.bfs_remedios_que_passaram(avl_tree.root)
+    passaram =  avl_tree.bfs(avl_tree.root)
     todos_remedios = []
-    avl_tree.dfs_todos_remedios_do_teste(avl_tree.root, todos_remedios)
+    avl_tree.dfs(avl_tree.root, todos_remedios)
 
     print("=== Remédios que passaram no teste ===")
     for remedio in passaram:

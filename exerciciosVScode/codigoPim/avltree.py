@@ -10,7 +10,7 @@ class No:
         self.efetivo = efetivo 
         self.colateral = colateral 
         self.seguro = seguro
-        self.height = 0
+        self.height = 0  # altura inicial para nó folha é 0
         self.parent = None 
         self.left = None 
         self.right = None 
@@ -34,6 +34,11 @@ class AVLarvore:
             if no_atual.left is None:
                 no_atual.left = No(remedio, efetivo, colateral, seguro, passa)
                 no_atual.left.parent = no_atual
+                # Atualizar altura do nó atual após inserção
+                no_atual.height = 1 + max(
+                    self.get_height(no_atual.left),
+                    self.get_height(no_atual.right)
+                )
                 self._inspect_insertion(no_atual.left)
             else:
                 self._insert(remedio, efetivo, colateral, seguro, passa, no_atual.left)
@@ -41,6 +46,11 @@ class AVLarvore:
             if no_atual.right is None:
                 no_atual.right = No(remedio, efetivo, colateral, seguro, passa)
                 no_atual.right.parent = no_atual
+                # Atualizar altura do nó atual após inserção
+                no_atual.height = 1 + max(
+                    self.get_height(no_atual.left),
+                    self.get_height(no_atual.right)
+                )
                 self._inspect_insertion(no_atual.right)
             else:
                 self._insert(remedio, efetivo, colateral, seguro, passa, no_atual.right)
@@ -65,7 +75,7 @@ class AVLarvore:
     
     def _height(self, no_atual, altura_atual):
         if no_atual is None:
-            return altura_atual
+            return altura_atual - 1  # Ajuste para consistência
         
         left_height = self._height(no_atual.left, altura_atual + 1)
         right_height = self._height(no_atual.right, altura_atual + 1)
@@ -189,8 +199,8 @@ class AVLarvore:
             self._rebalance_node(path[0], y, x)
             return
         
-        new_height = 1 + no_atual.height
-        if new_height > no_atual.parent.height:
+        new_height = 1 + max(self.get_height(no_atual.left), self.get_height(no_atual.right))
+        if new_height != no_atual.parent.height:
             no_atual.parent.height = new_height
         
         self._inspect_insertion(no_atual.parent)
@@ -284,7 +294,7 @@ class AVLarvore:
 
     def get_height(self, no_atual):
         if no_atual is None:
-            return 0 
+            return -1  # CORREÇÃO: nó nulo tem altura -1
         return no_atual.height
 
     def taller_child(self, no_atual):
@@ -293,9 +303,9 @@ class AVLarvore:
         return no_atual.left if left >= right else no_atual.right
     
     #Análise Assintótica Tempo: O(n) Espaço: O(O(n + h))
+    # transformar os dados em pre order
     def transforme_data(self, raiz, data_list):
         if raiz:
-            self.transforme_data(raiz.left, data_list)
             data_list.append({
                 "remedio": raiz.remedio,
                 "efetivo": raiz.efetivo,
@@ -303,10 +313,12 @@ class AVLarvore:
                 "seguro": raiz.seguro,
                 "passa": raiz.passa
             })
+            self.transforme_data(raiz.left, data_list)
             self.transforme_data(raiz.right, data_list)
-    
+        
+
     #Análise Assintótica Tempo: O(n) Espaço: O(n)
-    def bfs_remedios_que_passaram(self, raiz):
+    def bfs(self, raiz):
         
         if not raiz:
             return False 
@@ -329,7 +341,7 @@ class AVLarvore:
         return passaram
 
     #Análise Assintótica Tempo: O(n) Espaço: O(n + h)
-    def dfs_todos_remedios_do_teste(self, raiz, todos_remedios):
+    def dfs(self, raiz, todos_remedios):
         
         if not raiz:
             return 
@@ -337,9 +349,16 @@ class AVLarvore:
         if raiz.remedio:
             todos_remedios.append(raiz.remedio)
         
-        return self.dfs_todos_remedios_do_teste(raiz.left, todos_remedios) or self.dfs_todos_remedios_do_teste(raiz.right, todos_remedios)
-    
+        return self.dfs(raiz.left, todos_remedios) or self.dfs(raiz.right, todos_remedios)
 
 
+# Teste
+# avl = AVLarvore()
+# dados = [('A', 's', 'sem colateral', 's', 1), ('B', 'n', 'sem colateral', 's', 0), ('C', 's', 'sem colateral', 's', 1)]
 
+# for remedio, efetivo, colateral, seguro, passa in dados:
+#     avl.insert(remedio, efetivo, colateral, seguro, passa)
 
+# print(avl.search(1, "A"))
+
+# print("Altura da árvore:", avl.height())  # Deve retornar 0 para um nó único
