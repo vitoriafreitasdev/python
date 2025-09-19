@@ -20,12 +20,14 @@ class AVLarvore:
     def __init__(self):
         self.root = None 
 
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def insert(self, remedio, efetivo, colateral, seguro, passa):
         if self.root is None:            
             self.root = No(remedio, efetivo, colateral, seguro, passa)
         else:
             self._insert(remedio, efetivo, colateral, seguro, passa, self.root)
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def _insert(self, remedio, efetivo, colateral, seguro, passa, no_atual):
         new_key = (passa, remedio)
         current_key = (no_atual.passa, no_atual.remedio)
@@ -57,22 +59,26 @@ class AVLarvore:
         else:
             print("Medicamentos já existem na arvore.")
 
+    # Análise Assintótica Tempo: O(n) Espaço: O(h) - Pilha de recursão
     def print_tree(self):
         if self.root is not None:
             self._print_tree(self.root)
 
+    # Análise Assintótica Tempo: O(n) Espaço: O(h) - Pilha de recursão
     def _print_tree(self, cur_node):
         if cur_node is not None:
             self._print_tree(cur_node.left)
             print(f'{cur_node.remedio}: passa={cur_node.passa}, efeito: {cur_node.efetivo}, colateral: {cur_node.colateral}, segurança: {cur_node.seguro} h={cur_node.height}')
             self._print_tree(cur_node.right)
 
+    # Análise Assintótica Tempo: O(n) Espaço: O(h) - Pilha de recursão
     def height(self):
         if self.root is not None:
             return self._height(self.root, 0)
         else:
             return -1
     
+    # Análise Assintótica Tempo: O(n) Espaço: O(h) - Pilha de recursão
     def _height(self, no_atual, altura_atual):
         if no_atual is None:
             return altura_atual - 1  # Ajuste para consistência
@@ -81,12 +87,14 @@ class AVLarvore:
         right_height = self._height(no_atual.right, altura_atual + 1)
         return max(left_height, right_height)
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def find(self, passa, remedio):
         if self.root is not None:
             return self._find((passa, remedio), self.root)
         else:
             return None
         
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def _find(self, key, atual):
         key_atual = (atual.passa, atual.remedio)
 
@@ -98,9 +106,11 @@ class AVLarvore:
             return self._find(key, atual.right)
         return None
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def delete_value(self, passa, remedio):
         return self.delete_node(self.find(passa, remedio))
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def delete_node(self, no):
         if no is None or self.find(no.passa, no.remedio) is None:
             print("No não achado na arvore.")
@@ -167,12 +177,14 @@ class AVLarvore:
             )
             self._inspect_deletion(no_parent)
 
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def search(self, passa, remedio):
         if self.root is not None:
             return self._search((passa, remedio), self.root)
         else:
             return False 
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(log n) - Pilha de recursão
     def _search(self, key, no_atual):
         chave_atual = (no_atual.passa, no_atual.remedio)
         
@@ -184,6 +196,7 @@ class AVLarvore:
             return self._search(key, no_atual.right)
         return False 
     
+    # Análise Assintótica Tempo: O(log n) Espaço: O(1)
     def _inspect_insertion(self, no_atual):
         if no_atual.parent is None:
             return         
@@ -205,6 +218,7 @@ class AVLarvore:
         
         self._inspect_insertion(no_atual.parent)
 
+    # Análise Assintótica Tempo: O(log n) Espaço: O(1)
     def _inspect_deletion(self, no_atual):
         if no_atual is None:
             return
@@ -219,6 +233,7 @@ class AVLarvore:
 
         self._inspect_deletion(no_atual.parent)
 
+    # Análise Assintótica Tempo: O(1) Espaço: O(1)
     def _rebalance_node(self, z, y, x):
         if y == z.left and x == y.left:
             self._right_rotate(z)
@@ -234,6 +249,7 @@ class AVLarvore:
             raise Exception("Aconteceu um erro ao rebalancear.")
         
     #Rotações da arvore para garantir uma arvore balanceada
+    # Análise Assintótica Tempo: O(1) Espaço: O(1)
     def _right_rotate(self, z):
         sub_root = z.parent 
         y = z.left 
@@ -263,6 +279,7 @@ class AVLarvore:
             self.get_height(y.right)
         )
     
+    # Análise Assintótica Tempo: O(1) Espaço: O(1)
     def _left_rotate(self, z):
         sub_root = z.parent 
         y = z.right
@@ -292,18 +309,19 @@ class AVLarvore:
             self.get_height(y.right)
         )
 
+    # Análise Assintótica Tempo: O(1) Espaço: O(1)
     def get_height(self, no_atual):
         if no_atual is None:
-            return -1  # CORREÇÃO: nó nulo tem altura -1
+            return -1  
         return no_atual.height
 
+    # Análise Assintótica Tempo: O(1) Espaço: O(1)
     def taller_child(self, no_atual):
         left = self.get_height(no_atual.left)
         right = self.get_height(no_atual.right)
         return no_atual.left if left >= right else no_atual.right
     
-    #Análise Assintótica Tempo: O(n) Espaço: O(O(n + h))
-    # transformar os dados em pre order
+    # Análise Assintótica Tempo: O(n) Espaço: O(n + h) - Lista + Pilha recursão
     def transforme_data(self, raiz, data_list):
         if raiz:
             data_list.append({
@@ -317,7 +335,7 @@ class AVLarvore:
             self.transforme_data(raiz.right, data_list)
             
 
-    #Análise Assintótica Tempo: O(n) Espaço: O(n)
+    # Análise Assintótica Tempo: O(n) Espaço: O(n) - Fila BFS
     def bfs(self, raiz):
         
         if not raiz:
@@ -340,7 +358,7 @@ class AVLarvore:
         
         return passaram
 
-    #Análise Assintótica Tempo: O(n) Espaço: O(n + h)
+    # Análise Assintótica Tempo: O(n) Espaço: O(n + h) - Lista + Pilha recursão
     def dfs(self, raiz, todos_remedios):
         
         if not raiz:
@@ -351,14 +369,11 @@ class AVLarvore:
         
         return self.dfs(raiz.left, todos_remedios) or self.dfs(raiz.right, todos_remedios)
 
-
 # Teste
 # avl = AVLarvore()
-# dados = [('A', 's', 'sem colateral', 's', 1), ('B', 'n', 'sem colateral', 's', 0), ('C', 's', 'sem colateral', 's', 1)]
+# dados = [('A', 's', 'sem colateral', 's', 1)]
 
 # for remedio, efetivo, colateral, seguro, passa in dados:
 #     avl.insert(remedio, efetivo, colateral, seguro, passa)
 
-# print(avl.search(1, "A"))
 
-# print("Altura da árvore:", avl.height())  # Deve retornar 0 para um nó único

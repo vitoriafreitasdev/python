@@ -7,8 +7,9 @@ from avltree import AVLarvore
 from grafo import Grafo
 
 """
-agora fazer analise assintótica de complexidade e de
-suíte de testes unitários com cobertura superior a 80 por cento.
+otimizição
+ver o porque demora segundos para aparecer o menu
+tentar resolver o problema dos warnings do terminal, se nao resolver, mas o codigo funcionar perfeitamente tirar eles
 
 """
 
@@ -27,7 +28,7 @@ if __name__ == "__main__":
             
             nome_remedio = input("Coloque o nome do remédio: ")
 
-            eficiencia = input("Remedio é eficiente (s/n): ")
+            eficiencia = input("Remédio é eficiente (s/n): ")
 
             if(eficiencia != "s" and eficiencia != "n"):
                 print("Insira os dados corretamente.")
@@ -128,7 +129,7 @@ if __name__ == "__main__":
                 print("Aprovado para venda.")
             else:
                 print("Reporovado, precisa de mais testes e mais reajustes a serem feitos.")
-                outliers.append((f"Remedio numero: {n1}"))
+                outliers.append((f"Número do remédio: {n1}"))
 
             continuar = input("Deseja continuar (s/n): ")
 

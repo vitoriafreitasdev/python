@@ -25,12 +25,12 @@ class Grafo:
             fila.append(paciente)
         
         return fila 
-    
+     #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def mostrar_prioritarios(self, fila):
         
         for i in range(len(fila)):
             print(f"Paciente número {i+1}:", fila.popleft()) 
-
+     #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def alocar_dados(self):
         data = []
     
