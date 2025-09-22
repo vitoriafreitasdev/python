@@ -5,11 +5,6 @@ from sklearn import tree
 from avltree import AVLarvore
 from grafo import Grafo
 
-"""
-
-tentar deixar visualmente mais bonito os dados no terminal
-
-"""
 
 if __name__ == "__main__":
 
