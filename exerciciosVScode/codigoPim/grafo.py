@@ -28,8 +28,8 @@ class Grafo:
      #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def mostrar_prioritarios(self, fila):
         
-        for i in range(len(fila)):
-            print(f"Paciente número {i+1}:", fila.popleft()) 
+        for _ in range(len(fila)):
+            print(f"Paciente: ", fila.popleft()) 
      #Análise Assintótica Tempo: O(n) Espaço: O(n)
     def alocar_dados(self):
         data = []

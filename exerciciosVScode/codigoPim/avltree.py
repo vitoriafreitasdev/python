@@ -99,7 +99,7 @@ class AVLarvore:
         key_atual = (atual.passa, atual.remedio)
 
         if key == key_atual:
-            return atual   # retorna o nó inteiro
+            return atual  # retorna o nó inteiro
         elif key < key_atual and atual.left is not None:
             return self._find(key, atual.left)
         elif key > key_atual and atual.right is not None:
@@ -376,4 +376,4 @@ class AVLarvore:
 # for remedio, efetivo, colateral, seguro, passa in dados:
 #     avl.insert(remedio, efetivo, colateral, seguro, passa)
 
-
+# print(avl.find(1, remedio))
