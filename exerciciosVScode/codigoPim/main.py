@@ -1,3 +1,4 @@
+
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
@@ -19,10 +20,12 @@ if __name__ == "__main__":
 
     def menu():
         # Coletando dados para arvore AVL
+        
         remedios_quantidade = int(input("Quantos remédios se vai inserir para analise: "))
     
         for _ in range(remedios_quantidade):
-            
+
+            print("\n-----------------------------------------------\n")   
             nome_remedio = input("Coloque o nome do remédio: ")
 
             eficiencia = input("Remédio é eficiente (s/n): ").lower().strip()
@@ -54,7 +57,9 @@ if __name__ == "__main__":
                 passa = 0
 
             dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', f'{seguro}', passa))
+            print("\n-----------------------------------------------\n")   
 
+        print("\n================= Coleta de dados dos pacientes =================\n")
         # Coletando dados para o grafo que vai alimentar a rotina de aprendizado de maquina dos pacientes.
         pacientes_quantidade = int(input("Quantos pacientes participaram do teste: "))
 
@@ -68,6 +73,8 @@ if __name__ == "__main__":
             
             gravidade = 1 if gravidade_input == "s" else 0
             vertices.append((nome, gravidade))
+        
+        print("\n====================================\n")
 
     menu()
 
@@ -95,17 +102,16 @@ if __name__ == "__main__":
     inputs_n = inputs.drop(['remedio', 'efetivo', 'colateral', 'seguro'], axis="columns")
     inputs_sem_numero = inputs.drop(['remedio_n', 'efetivo_n', 'colateral_n', 'seguro_n'], axis="columns")
     
-    print("\nDados:")
+    print("\n ----- Dados -----")
     print(inputs_sem_numero)
-    print("\nDados Codificados:")
+    print("\n ----- Dados Codificados -----")
     print(inputs_n)
 
     model = tree.DecisionTreeClassifier()
     model.fit(inputs_n, target)
 
     outliers = []
-    print("\n")
-    # ====== Prevendo os remédios ======
+    print("\n====== Análise de remédios ======\n")
     for i in range(len(inputs_n)):
         n1 = inputs_n.iloc[i]["remedio_n"]
         n2 = inputs_n.iloc[i]["efetivo_n"]
@@ -126,21 +132,20 @@ if __name__ == "__main__":
             print(f"Remédio: {nome_remedio}. Reprovado, precisa de mais testes e reajustes a serem feitos.")
             outliers.append((f"Nome do remédio: {nome_remedio}"))
         print("========================")
-    
-    print("\n")
+ 
     passaram = avl_tree.bfs(avl_tree.root)
     todos_remedios = []
     avl_tree.dfs(avl_tree.root, todos_remedios)
 
-    print("=== Remédios que passaram no teste ===")
+    print("\n===== Remédios que passaram no teste =====")
     for remedio in passaram:
         print(remedio) 
 
-    print("=== Todos remédios que estão no teste ===")
+    print("\n===== Todos remédios que estão no teste =====")
     for remedio in todos_remedios:
         print(remedio) 
 
-    print("=== Outliers detectados durante os testes ===")
+    print("\n===== Outliers detectados durante os testes =====")
     for outlier in outliers:
         print(outlier)
     print("\n")
@@ -163,12 +168,12 @@ if __name__ == "__main__":
     modelPacientes = tree.DecisionTreeClassifier()
     modelPacientes.fit(inputs_n_pacientes, target_pacientes)
     
-    print("=== Tabela dos pacientes ===")
+    print("\n===== Tabela dos pacientes ====")
     print(inputs_pacientes)
 
     pacientes_prioritarios = []
 
-    # ====== Prevendo os pacientes ======
+    print("\n===== Prevendo os pacientes =====")
     for i in range(len(inputs_n_pacientes)):
         n = inputs_n_pacientes.iloc[i]["nome_numero"]
         nome = inputs_pacientes.iloc[i]["nome"]
@@ -183,5 +188,5 @@ if __name__ == "__main__":
 
     fila = grafo.alocar_fila_de_pioridade(pacientes_prioritarios)
 
-    print("=== Ordem de atendimento dos prioritários ===")
+    print("\n===== Ordem de atendimento dos prioritários =====")
     grafo.mostrar_prioritarios(fila)
