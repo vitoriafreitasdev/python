@@ -1,3 +1,4 @@
+
 from collections import defaultdict
 from collections import deque
 
@@ -28,7 +29,26 @@ class Grafo:
                     visitados.add(v)
                     fila.append(caminho + [v])
 
-        return None
+        return 
+    
+    def dfs(self, inicio, fim):
+        todos = []
+
+        def dfs_inside(atual, caminho, visitados):
+            if atual == fim:
+                todos.append(caminho.copy())
+                return 
+
+            for v in self.grafo.get(atual, []):
+                if v not in visitados:
+                    visitados.add(v)
+                    caminho.append(v)
+                    dfs_inside(v, caminho, visitados)
+                    caminho.pop()
+                    visitados.remove(v)
+
+        dfs_inside(inicio, [inicio], set([inicio]))
+        return todos
 paises = [
     ("Inglaterra", "França"),
     ("Inglaterra", "País de Gales"),
@@ -42,7 +62,7 @@ paises = [
 
 grafo = Grafo(paises)
 
-caminho_mais_curto = grafo.bfs("França", "Noruega")
+todos_caminhos = grafo.dfs("França", "Noruega")
 
-print("Caminho mais curto: ", caminho_mais_curto)
+print("Todos caminhos: ", todos_caminhos)
 
