@@ -34,18 +34,17 @@ class GrafoPonderado:
     def dijkstra(self, inicio, fim):
         # junta todos os nós (origem + destino)
         todos_nos = set(self.grafo.keys())
-        print("todos nos: ",todos_nos)
+        
         for vizinhos in self.grafo.values():
             for v, _ in vizinhos:
                 todos_nos.add(v)
-        print("todos nos: ",todos_nos)
+        
         # inicializa custos
         custos = {no: float("inf") for no in todos_nos}
         custos[inicio] = 0
-        print("custos[inicio]: ",custos[inicio])
 
         pais = {inicio: None}
-        print("pais: ",pais)
+ 
         processados = set()
 
         def achar_custo_mais_baixo():
@@ -60,15 +59,15 @@ class GrafoPonderado:
         no = achar_custo_mais_baixo()
         while no is not None:
             custo = custos[no]
-            print(f"\nProcessando nó: {no}, custo atual: {custo}")
+            
             for vizinho, peso in self.grafo[no]:
                 novo_custo = custo + peso
                 if novo_custo < custos[vizinho]:
-                    print(f"  Atualizando custo de {vizinho}: {custos[vizinho]} -> {novo_custo}")
+                    
                     custos[vizinho] = novo_custo
                     pais[vizinho] = no
             processados.add(no)
-            print("  Custos atuais:", custos)
+ 
             no = achar_custo_mais_baixo()
 
         # reconstruir caminho

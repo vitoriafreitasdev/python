@@ -27,6 +27,7 @@ def networkDelayTime(times, n, k):
             continue
 
         min_times[i] = time_k_to_i
+       
         for nei, nei_time in graph[i]:
             if nei not in min_times:
                 heapq.heappush(min_heap, (time_k_to_i + nei_time, nei))
