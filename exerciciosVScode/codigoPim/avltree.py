@@ -324,6 +324,7 @@ class AVLarvore:
     # Análise Assintótica Tempo: O(n) Espaço: O(n + h) - Lista + Pilha recursão
     def transforme_data(self, raiz, data_list):
         if raiz:
+            self.transforme_data(raiz.left, data_list)
             data_list.append({
                 "remedio": raiz.remedio,
                 "efetivo": raiz.efetivo,
@@ -331,7 +332,6 @@ class AVLarvore:
                 "seguro": raiz.seguro,
                 "passa": raiz.passa
             })
-            self.transforme_data(raiz.left, data_list)
             self.transforme_data(raiz.right, data_list)
             
 
