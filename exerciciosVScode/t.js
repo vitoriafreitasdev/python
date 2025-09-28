@@ -12,7 +12,7 @@ const catalogo = {
             },
            }
         ,
-        celulare: [
+        celulares: [
             {
                 name: "Iphone",
                 price: 7800
