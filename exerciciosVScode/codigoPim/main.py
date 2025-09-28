@@ -6,6 +6,7 @@ from avltree import AVLarvore
 from grafo import Grafo
 
 
+
 if __name__ == "__main__":
 
     # Criando a árvore  para alimentar os dados da rotina de aprendizado de maquina dos remédios.
