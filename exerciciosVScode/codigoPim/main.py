@@ -15,8 +15,8 @@ if __name__ == "__main__":
     vertices = []
 
     def menu():
+
         # Coletando dados para arvore AVL
-        
         remedios_quantidade = int(input("Quantos remédios se vai inserir para analise: "))
     
         for _ in range(remedios_quantidade):
@@ -55,8 +55,8 @@ if __name__ == "__main__":
             dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', f'{seguro}', passa))
             print("\n-----------------------------------------------\n")   
 
-        print("\n================= Coleta de dados dos pacientes =================\n")
         # Coletando dados para o grafo que vai alimentar a rotina de aprendizado de maquina dos pacientes.
+        print("\n================= Coleta de dados dos pacientes =================\n")
         pacientes_quantidade = int(input("Quantos pacientes participaram do teste: "))
 
         for _ in range(pacientes_quantidade):
@@ -74,17 +74,24 @@ if __name__ == "__main__":
 
     menu()
 
+
+    # inserindo os dados na avl
     for remedio, efetivo, colateral, seguro, passa in dados_para_inserir:
         avl_tree.insert(remedio, efetivo, colateral, seguro, passa)
 
     data_list = []
+    # pegar os dados da AVL para fazer o aprendizado de máquina 
     avl_tree.transforme_data(avl_tree.root, data_list)
 
+    #dados que vão ser utilizados no aprendizado
     df = pd.DataFrame(data_list) 
 
+    
     inputs = df.drop('passa', axis='columns')
     target = df['passa']
 
+
+    #transformação de dados que estavam em string para números, pois maquina apenas ler números
     le_remedio = LabelEncoder()
     le_efetivo = LabelEncoder()
     le_colateral = LabelEncoder()
@@ -107,6 +114,7 @@ if __name__ == "__main__":
     model.fit(inputs_n, target)
 
     outliers = []
+    #fazendo a análise dos dados, e mostrando o resultado na tela
     print("\n====== Análise de remédios ======\n")
     for i in range(len(inputs_n)):
         n1 = inputs_n.iloc[i]["remedio_n"]
@@ -128,7 +136,8 @@ if __name__ == "__main__":
             print(f"Remédio: {nome_remedio}. Reprovado, precisa de mais testes e reajustes a serem feitos.")
             outliers.append((f"Nome do remédio: {nome_remedio}"))
         print("========================")
- 
+    
+    #pegando os dados que passaram e todos que tiveram no teste.
     passaram = avl_tree.bfs(avl_tree.root)
     todos_remedios = []
     avl_tree.dfs(avl_tree.root, todos_remedios)
@@ -150,12 +159,15 @@ if __name__ == "__main__":
     grafo = Grafo(vertices)
     data = grafo.alocar_dados()
 
+    # Dados para a análise
     dfpacientes = pd.DataFrame(data)
+    # utilizamos lambda para transformar o que era [1] ou [0] em 1 ou 0, assim conseguindo fazer o aprendizado de máquina 
     dfpacientes['gravidade'] = dfpacientes['gravidade'].apply(lambda x: x[0])
- 
+  
     inputs_pacientes = dfpacientes.drop('gravidade', axis="columns")
     target_pacientes = dfpacientes['gravidade']
 
+    #transformação de string para número 
     le_nome = LabelEncoder()
     inputs_pacientes["nome_numero"] = le_nome.fit_transform(inputs_pacientes['nome'])
 
@@ -169,12 +181,12 @@ if __name__ == "__main__":
 
     pacientes_prioritarios = []
 
+    #fazendo a análise dos pacientes e o relocamento para a fila de prioridades.
     print("\n===== Prevendo os pacientes =====")
     for i in range(len(inputs_n_pacientes)):
         n = inputs_n_pacientes.iloc[i]["nome_numero"]
         nome = inputs_pacientes.iloc[i]["nome"]
 
-        # Criando DataFrame para evitar warning
         treinamento_paciente = pd.DataFrame([[n]], columns=["nome_numero"])
         resultadopacientes = modelPacientes.predict(treinamento_paciente)
 

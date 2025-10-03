@@ -3,14 +3,14 @@ from collections import deque
 
 class No:
     def __init__(self, remedio=None, efetivo=None, colateral=None, seguro=None, passa=None):
-        # padronizamos a chave como (passa, remedio) para comparar corretamente
+        # inicialização
         self.key = (passa, remedio)
         self.remedio = remedio
         self.passa = passa
         self.efetivo = efetivo 
         self.colateral = colateral 
         self.seguro = seguro
-        self.height = 0  # altura inicial para nó folha é 0
+        self.height = 0 
         self.parent = None 
         self.left = None 
         self.right = None 
@@ -36,7 +36,7 @@ class AVLarvore:
             if no_atual.left is None:
                 no_atual.left = No(remedio, efetivo, colateral, seguro, passa)
                 no_atual.left.parent = no_atual
-                # Atualizar altura do nó atual após inserção
+                # Atualização altura do nó atual após inserção
                 no_atual.height = 1 + max(
                     self.get_height(no_atual.left),
                     self.get_height(no_atual.right)
@@ -369,11 +369,4 @@ class AVLarvore:
         
         return self.dfs(raiz.left, todos_remedios) or self.dfs(raiz.right, todos_remedios)
 
-# Teste
-# avl = AVLarvore()
-# dados = [('A', 's', 'sem colateral', 's', 1)]
 
-# for remedio, efetivo, colateral, seguro, passa in dados:
-#     avl.insert(remedio, efetivo, colateral, seguro, passa)
-
-# print(avl.find(1, remedio))

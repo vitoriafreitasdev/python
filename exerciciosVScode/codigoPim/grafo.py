@@ -4,9 +4,9 @@ from collections import defaultdict
 
 from collections import deque
 
-# as vertices vao ser o nome e a gravidade da doenca
 
 class Grafo:
+    # inicialização do grafo
     def __init__(self, vertices):
         self.vertices = vertices 
         self.grafo = defaultdict(list)
