@@ -2,8 +2,6 @@
 import unittest
 from grafo import Grafo 
 from avltree import AVLarvore 
-import io
-import sys
 from collections import deque
 
 
