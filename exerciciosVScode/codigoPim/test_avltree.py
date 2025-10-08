@@ -1,10 +1,6 @@
 
 import unittest
-from grafo import Grafo 
 from avltree import AVLarvore 
-from collections import deque
-
-
 class TestAvl(unittest.TestCase):
     def setUp(self):
         print('setUp')

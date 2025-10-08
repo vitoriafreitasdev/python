@@ -6,8 +6,6 @@ import io
 import sys
 from collections import deque
 
-
-
 class TestGrafo(unittest.TestCase):
     def setUp(self):
         print('setUp')

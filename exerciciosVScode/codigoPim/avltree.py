@@ -1,6 +1,5 @@
 
 from collections import deque
-
 class No:
     def __init__(self, remedio=None, efetivo=None, colateral=None, seguro=None, passa=None):
         # inicialização
@@ -15,7 +14,6 @@ class No:
         self.left = None 
         self.right = None 
 
-    
 class AVLarvore:
     def __init__(self):
         self.root = None 
@@ -368,5 +366,3 @@ class AVLarvore:
             todos_remedios.append(raiz.remedio)
         
         return self.dfs(raiz.left, todos_remedios) or self.dfs(raiz.right, todos_remedios)
-
-

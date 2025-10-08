@@ -5,11 +5,8 @@ from sklearn import tree
 from avltree import AVLarvore
 from grafo import Grafo
 
-
-
 if __name__ == "__main__":
-
-    # Criando a árvore  para alimentar os dados da rotina de aprendizado de maquina dos remédios.
+    # Criando a árvore  para alimentar os dados da rotina de aprendizado de máquina dos remédios.
     avl_tree = AVLarvore()
     dados_para_inserir = []
     vertices = []
@@ -55,7 +52,7 @@ if __name__ == "__main__":
             dados_para_inserir.append((f'{nome_remedio}', f'{eficiencia}', f'{colateral}', f'{seguro}', passa))
             print("\n-----------------------------------------------\n")   
 
-        # Coletando dados para o grafo que vai alimentar a rotina de aprendizado de maquina dos pacientes.
+        # Coletando dados para o grafo que vai alimentar a rotina de aprendizado de máquina dos pacientes.
         print("\n================= Coleta de dados dos pacientes =================\n")
         pacientes_quantidade = int(input("Quantos pacientes participaram do teste: "))
 
@@ -74,7 +71,6 @@ if __name__ == "__main__":
 
     menu()
 
-
     # inserindo os dados na avl
     for remedio, efetivo, colateral, seguro, passa in dados_para_inserir:
         avl_tree.insert(remedio, efetivo, colateral, seguro, passa)
@@ -86,12 +82,10 @@ if __name__ == "__main__":
     #dados que vão ser utilizados no aprendizado
     df = pd.DataFrame(data_list) 
 
-    
     inputs = df.drop('passa', axis='columns')
     target = df['passa']
 
-
-    #transformação de dados que estavam em string para números, pois maquina apenas ler números
+    #transformação de dados que estavam em string para números, pois máquina apenas ler números
     le_remedio = LabelEncoder()
     le_efetivo = LabelEncoder()
     le_colateral = LabelEncoder()
