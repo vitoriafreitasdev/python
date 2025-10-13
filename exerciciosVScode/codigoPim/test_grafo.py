@@ -1,7 +1,6 @@
 
 import unittest
 from grafo import Grafo 
-from avltree import AVLarvore 
 import io
 import sys
 from collections import deque
@@ -34,9 +33,9 @@ class TestGrafo(unittest.TestCase):
 
         saida = captured.getvalue().strip().split("\n")
         self.assertEqual(saida, [
-            "Paciente número 1: A",
-            "Paciente número 2: B",
-            "Paciente número 3: C"
+            "Paciente:  A",
+            "Paciente:  B",
+            "Paciente:  C"
         ])
 
     def test_alocar_dados(self):

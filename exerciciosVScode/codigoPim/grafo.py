@@ -1,7 +1,6 @@
 
 from collections import defaultdict
 from collections import deque
-
 class Grafo:
     # inicialização do grafo
     def __init__(self, vertices):
