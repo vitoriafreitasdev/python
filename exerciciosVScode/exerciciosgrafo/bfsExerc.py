@@ -46,19 +46,36 @@ class Grafo:
 
         return None
 
+    def dfs(self, inicio, destino):
+        todos = []
+
+        def funcao_dfs(atual, caminho, visitados):
+            if atual == destino:
+                todos.append(caminho.copy())
+                return
+            for v in self.grafo.get(atual, []):
+                if v not in visitados:
+                    visitados.add(v)
+                    caminho.append(v)
+                    funcao_dfs(v, caminho, visitados)
+                    caminho.pop()
+                    visitados.remove(v)
+
+        funcao_dfs(inicio, [inicio], set([inicio]))
+        return todos
+    
+# testar o dfs
+                    
 
 vertices = [
     ("Inglaterra", "Pais de Gales"),
     ("Inglaterra", "Escocia"),
     ("Escocia", "Noruega"),
-    ("Escocia", "Irlanda"),
-    ("Escocia", "Canada"),
     ("Pais de Gales", "França"),
-    ("Pais de Gales", "Irlanda"),
-    ("Pais de Gales", "Escocia"),
-    ("Irlanda", "Islandia"),
-    ("Irlanda", "Canada"),
-    ("Irlanda", "França"),
+    ("Pais de Gales", "Noruega"),
+    ("Escocia", "Canada"),
+    ("Canada", "Noruega")
+
 ]
 
 grafo = Grafo(vertices)
@@ -66,3 +83,6 @@ bfs = grafo.bfs("Inglaterra", "Canada")
 print(bfs)
 caminho = grafo.caminho("França")
 print(caminho)
+todos = grafo.dfs("Inglaterra", "Noruega")
+print(todos)
+
