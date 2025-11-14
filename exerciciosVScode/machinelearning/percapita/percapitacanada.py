@@ -24,7 +24,7 @@ resposta = reg.predict(ano)
 plt.scatter(target.year, target.per_capita_income, color="red", marker=".")
 plt.plot(target.year, reg.predict(target[['year']]), color="blue")
 
-#plt.show()
+plt.show()
 
 anos = reg.predict(target_years)
 target_years['per capita income (US$)'] = anos

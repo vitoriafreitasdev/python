@@ -30,8 +30,7 @@ plt.scatter(df.area, df.price, color='red', marker='+')
 plt.plot(df.area, reg.predict(df[['area']]), color="blue", marker="+")
 plt.grid(True)
 
-# MOSTRAR O GRÁFICO - Esta linha é essencial!
-plt.show()
+#plt.show()
 
 # 135 é o valor que da se fazemos reg.coef => o coeficiente, 180 é valor do intercept que da se fazer reg.intercept_, ele pega esses dados do csv, 3300 é valor da area
 #formula => y = m*x+b
@@ -40,6 +39,7 @@ plt.show()
 
 p = reg.predict(d)
 d['prices'] = p 
-
+print("Testes")
+print(d)
 # output_path = os.path.join(current_dir, "prediction.csv")
 # d.to_csv(output_path, index=False)

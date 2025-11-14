@@ -36,7 +36,7 @@ model.fit(inputs_n,target)
 # porcentagem de acerto de 0 a 1
 model.score(inputs_n, target)
 
-# print(model.predict([[2, 0, 1]]))
+print(model.predict([[2, 0, 1]]))
 
 
 company = "google"
