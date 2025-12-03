@@ -17,3 +17,12 @@ def fatorial(n):
 
 
 print(fatorial(5))
+
+objeto = {
+    'a': 1,
+    'b': 2,
+    'c': 3
+}
+
+print(objeto['a'])
+
