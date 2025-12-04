@@ -9,6 +9,15 @@ vendas = {
     4: {"item": "lata mini", "preco_unitario": 2, "quantidade": 6},
 }
 
+
+
 @app.get("/")
 def home():
-    return "Minha api está no ar"
+    return {"Vendas": len(vendas)}
+
+@app.get("/vendas/{id_vendas}")
+def pegar_vendas(id_vendas: int):
+    if id_vendas in vendas:
+        return vendas[id_vendas]
+    else:
+        return {"Erro": "ID venda inexistente"}
